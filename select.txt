@@ -1,0 +1,11 @@
+select C.NAME 
+from PRODUCTS P join CUSTOMERS C
+on C.Customerid = P.Customerid
+where P.Productname = 'milk'
+and Not exists(
+    select *
+    from PRODUCTS
+    where Customerid = C.Customerid 
+    and Productname = 'sourcream' 
+    and Month(P.purchaiseDatetime) = Month(DATEADD(month,-1,GETDATE()))
+);
